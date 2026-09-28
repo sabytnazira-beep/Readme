@@ -53,6 +53,43 @@ These are broad topics for business owners, framed as curiosity gaps. Each one m
 | 24 | "Why the best Dubai studios run like hotels." | S | Experience as the premium | 5 hotel-style icons in teal |
 | 25 | "Why keeping a customer is cheaper than finding a new one." | V | Retention economics | Two paths, the retention loop in teal |
 
+### 5b. More on how good businesses grow
+
+> **Story posts:** the facts below are well-known and public, but check each one before filming. Talk about brands, don't impersonate them: use icons and text, not their logos, fonts or branding.
+
+**Real growth stories (the lesson is what matters)**
+| # | Hook | Lvl | The lesson | Visual & colour |
+|---|---|---|---|---|
+| 31 | "Airbnb's early growth trick: they photographed the listings themselves." | W | Better visuals = more bookings. Directly your offer | Before/after listing photo, "photos" in teal |
+| 32 | "Costco has sold its hot dog combo at the same price since 1985. On purpose." | S | Loss leaders and trust pricing | Price tag frozen with a teal padlock |
+| 33 | "Glossier started as a beauty blog, not a product." | W | Build the audience first, then the product | Timeline blog → brand, steps in teal |
+| 34 | "Huda Beauty started in Dubai as a blog, then a line of lashes." | W | UAE homegrown: content → community → product | Dubai skyline line art, a teal path to a product box |
+| 35 | "Careem started in Dubai and was bought by Uber for about $3 billion." | S | Local problem, local trust, regional scale | "$3.1B" in teal |
+| 36 | "Gymshark grew by putting its clothes on fitness creators before paying for ads." | S | Creators as early distribution (now permit-checked in the UAE) | Creator silhouettes linked by teal lines |
+| 37 | "Dollar Shave Club got famous from one low-budget video." | S | Personality beats production budget | Cheap camera icon, the word "personality" in teal |
+| 38 | "Liquid Death sells water. Its branding is the product." | S | Positioning turns a commodity into a premium product | Plain water bottle vs branded can, "brand" in teal |
+| 39 | "Starbucks didn't sell coffee. It sold the 'third place'." | S | Selling the space and the ritual, not the product | Home · Work · teal "Third place" |
+| 40 | "How a taco truck became one of Dubai's favourite restaurants." | W | Start small, prove demand, then build (Maiz Tacos) | Truck → restaurant timeline in teal |
+
+**Growth principles (every business can use them)**
+| # | Hook | Lvl | The lesson | Visual & colour |
+|---|---|---|---|---|
+| 41 | "The best businesses are famous for one thing." | S | A hero product or signature item | One item spotlit with a teal glow; the rest at 40% |
+| 42 | "Your best marketing channel is your existing customers." | S | Referrals and word of mouth | One customer icon branching to 3 in teal |
+| 43 | "Why good businesses raise prices instead of running discounts." | S | Value framing, margin and positioning | Price arrow ↑ in teal, "discount" struck through |
+| 44 | "Say no to the wrong customers. It's how the best brands grow." | S | Niche focus and clear positioning | Door with "not for everyone" in teal |
+| 45 | "Pop-up before you open a shop." | V | Test demand cheaply | Pop-up stall → shop, steps in teal |
+| 46 | "Limited drops make people come back." | S | Scarcity plus a routine | Calendar with "drop day" in teal |
+| 47 | "Your packaging is free advertising, if people want to photograph it." | S | Shareable product and packaging design | Cup/bag held to a phone camera, frame in teal |
+| 48 | "The businesses that grow own their customer list." | V | Owned channels (WhatsApp, email) vs renting from apps | "Owned" in teal vs "rented" at 40% |
+| 49 | "Collabs: how two small brands borrow each other's customers." | S | Partnerships and co-branded drops | Two circles overlapping, the overlap in teal |
+| 50 | "Community first, then customers." | W | Run clubs, events, members | People icons in a teal circle |
+| 51 | "Why consistency beats creativity." | S | Recognition comes from repetition | 9-grid feed, the same teal accent repeated |
+| 52 | "The founder is the brand's unfair advantage." | S | Founder-led content | Founder silhouette, "unfair advantage" in teal |
+| 53 | "Most businesses don't have a marketing problem. They have a follow-up problem." | S | Lead handling and retention | Leaking bucket, the leak patched in teal |
+| 54 | "Grow by fixing the experience before buying more ads." | V | Reviews, reply time and service drive growth | Checklist on Mist, ticks in teal |
+| 55 | "When to open a second branch, and when it will kill the first." | W | Scaling timing: systems, team, demand | Two storefronts joined by a teal line with a "?" |
+
 ## 6. UAE business insights (local, timely)
 | # | Hook | Lvl | What they learn | Visual & colour |
 |---|---|---|---|---|
