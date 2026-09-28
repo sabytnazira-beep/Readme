@@ -2,11 +2,11 @@
   "project": {
     "title": "Talks to Everyone, Sells to No One — Kinetic Typography Reel",
     "signal_ladder_level": "Share",
-    "duration_seconds": 25,
+    "duration_seconds": 30,
     "aspect_ratio": "9:16",
     "fps": 30,
     "resolution": "1080x1920",
-    "style": "Minimalist corporate kinetic typography",
+    "style": "Minimalist corporate kinetic typography, calm pacing",
     "color_palette": {
       "background": "linear-gradient(160deg, #0a1a30 0%, #16304e 55%, #2a517f 100%)",
       "background_light": "linear-gradient(180deg, #ffffff 0%, #e8eff1 100%)",
@@ -26,11 +26,20 @@
       "weight_heavy": 900,
       "case": "UPPERCASE",
       "tracking": "tight to normal",
-      "rendering": "sharp, anti-aliased"
+      "rendering": "sharp, anti-aliased",
+      "size_scale": {
+        "label": "22px",
+        "headline": "44px",
+        "headline_short": "48px",
+        "row_label": "52px",
+        "punchline": "56px",
+        "footnote": "20px"
+      }
     },
     "audio": {
       "voiceover": true,
-      "style": "calm, authoritative voice",
+      "style": "calm, authoritative voice, unhurried (about 2 words per second)",
+      "pause_between_lines_ms": 400,
       "background_music": "subtle lo-fi beat, low volume"
     }
   },
@@ -39,7 +48,7 @@
 
     {
       "second": "0:00",
-      "duration": 2,
+      "duration": 3,
       "scene_id": "hook_intro",
       "voiceover": "If your content talks to everyone...",
       "background": {
@@ -52,9 +61,9 @@
           "id": "label_content",
           "type": "text",
           "content": "YOUR CONTENT",
-          "position": { "x": "50%", "y": "30%", "anchor": "center" },
+          "position": { "x": "50%", "y": "32%", "anchor": "center" },
           "style": {
-            "font_size": "28px",
+            "font_size": "22px",
             "font_weight": 600,
             "color": "#6896a3",
             "letter_spacing": "0.15em",
@@ -62,7 +71,7 @@
           },
           "animation": {
             "entrance": "fade_in",
-            "entrance_duration_ms": 400,
+            "entrance_duration_ms": 500,
             "entrance_delay_ms": 0,
             "easing": "ease-out"
           }
@@ -71,19 +80,19 @@
           "id": "headline_1",
           "type": "text",
           "content": "IF YOUR CONTENT TALKS TO EVERYONE",
-          "position": { "x": "50%", "y": "42%", "anchor": "center" },
+          "position": { "x": "50%", "y": "40%", "anchor": "center" },
           "style": {
-            "font_size": "56px",
+            "font_size": "44px",
             "font_weight": 900,
             "color": "#ffffff",
-            "line_height": 1.1,
+            "line_height": 1.15,
             "text_align": "center",
-            "max_width": "85%"
+            "max_width": "72%"
           },
           "animation": {
             "entrance": "fade_in_up",
-            "entrance_duration_ms": 500,
-            "entrance_delay_ms": 150,
+            "entrance_duration_ms": 700,
+            "entrance_delay_ms": 200,
             "easing": "ease-out"
           }
         },
@@ -93,20 +102,21 @@
           "columns": 3,
           "rows": 3,
           "card_count": 9,
-          "card_content": "thin-line person icon, white stroke 3px, centred in each card",
+          "card_content": "thin-line person icon, white stroke 2.5px, centred in each card",
           "card_style": {
             "background": "#16304e",
             "border": "1px solid rgba(255,255,255,0.12)",
-            "border_radius": "16px",
+            "border_radius": "14px",
             "shadow": "0 8px 24px rgba(10,26,48,0.35)"
           },
-          "position": { "x": "50%", "y": "70%", "anchor": "center" },
-          "grid_size": { "width": "76%", "height": "30%" },
+          "position": { "x": "50%", "y": "68%", "anchor": "center" },
+          "grid_size": { "width": "60%", "height": "26%" },
           "animation": {
             "entrance": "stagger_float_in",
-            "stagger_delay_ms": 80,
-            "entrance_duration_ms": 600,
-            "float_offset_y": "20px",
+            "stagger_delay_ms": 120,
+            "entrance_duration_ms": 700,
+            "entrance_delay_ms": 600,
+            "float_offset_y": "16px",
             "easing": "ease-out"
           }
         }
@@ -114,8 +124,8 @@
     },
 
     {
-      "second": "0:02",
-      "duration": 2,
+      "second": "0:03",
+      "duration": 3,
       "scene_id": "problem_statement",
       "voiceover": "...it sells to no one.",
       "background": {
@@ -123,25 +133,29 @@
         "colors": ["#0a1a30", "#16304e", "#2a517f"],
         "direction": "160deg"
       },
+      "transition_from_previous": {
+        "type": "cross_fade",
+        "duration_ms": 300
+      },
       "elements": [
         {
           "id": "headline_2",
           "type": "text",
           "content": "IT SELLS TO NO ONE",
-          "position": { "x": "50%", "y": "42%", "anchor": "center" },
+          "position": { "x": "50%", "y": "40%", "anchor": "center" },
           "style": {
-            "font_size": "68px",
+            "font_size": "48px",
             "font_weight": 900,
             "color": "#ffffff",
-            "line_height": 1.05,
+            "line_height": 1.1,
             "text_align": "center",
-            "max_width": "85%"
+            "max_width": "72%"
           },
           "animation": {
-            "entrance": "snap_in",
-            "entrance_duration_ms": 200,
+            "entrance": "fade_in",
+            "entrance_duration_ms": 400,
             "entrance_delay_ms": 0,
-            "easing": "ease-in-out"
+            "easing": "ease-out"
           }
         },
         {
@@ -155,30 +169,35 @@
             "background_transition": {
               "from": "#16304e",
               "to": "rgba(22,48,78,0.4)",
-              "stagger_delay_ms": 100,
-              "duration_ms": 400
+              "stagger_delay_ms": 150,
+              "duration_ms": 500,
+              "start_delay_ms": 500
             },
             "icon_color_transition": {
               "from": "#ffffff",
               "to": "rgba(255,255,255,0.4)"
             },
-            "strike_through": { "color": "#6896a3", "width": "3px" },
-            "border_radius": "16px"
+            "strike_through": { "color": "#6896a3", "width": "2.5px" },
+            "border_radius": "14px"
           },
-          "position": { "x": "50%", "y": "70%", "anchor": "center" },
-          "grid_size": { "width": "76%", "height": "30%" }
+          "position": { "x": "50%", "y": "68%", "anchor": "center" },
+          "grid_size": { "width": "60%", "height": "26%" }
         }
       ]
     },
 
     {
-      "second": "0:04",
+      "second": "0:06",
       "duration": 3,
       "scene_id": "solution_pick_one",
       "voiceover": "Pick one customer.",
       "background": {
         "type": "solid",
         "color": "#0a1a30"
+      },
+      "transition_from_previous": {
+        "type": "cross_fade",
+        "duration_ms": 300
       },
       "elements": [
         {
@@ -187,14 +206,14 @@
           "content": "PICK ONE CUSTOMER",
           "position": { "x": "50%", "y": "32%", "anchor": "center" },
           "style": {
-            "font_size": "68px",
+            "font_size": "48px",
             "font_weight": 900,
             "color": "#ffffff",
             "text_align": "center"
           },
           "animation": {
             "entrance": "fade_in",
-            "entrance_duration_ms": 300,
+            "entrance_duration_ms": 500,
             "easing": "ease-out"
           }
         },
@@ -207,15 +226,16 @@
             "cell_color_a": "#16304e",
             "cell_color_b": "#2a517f",
             "border_color": "rgba(255,255,255,0.12)",
-            "cell_size": "90px",
-            "perspective": "600px"
+            "cell_size": "80px",
+            "perspective": "700px"
           },
           "highlight_cell": {
             "index": 4,
             "color": "#6896a3",
             "icon_color": "#0a1a30",
-            "lift_z": "40px",
-            "delay_ms": 600,
+            "lift_z": "32px",
+            "delay_ms": 1200,
+            "lift_duration_ms": 600,
             "glow": "radial #6896a3 at 30% opacity"
           },
           "position": { "x": "50%", "y": "64%", "anchor": "center" },
@@ -223,8 +243,8 @@
             "entrance": "3d_rotate_to_isometric",
             "start_rotation": { "x": 0, "y": 0, "z": 0 },
             "end_rotation": { "x": 45, "y": 20, "z": 0 },
-            "duration_ms": 800,
-            "easing": "linear",
+            "duration_ms": 1100,
+            "easing": "ease-in-out",
             "hold": true
           }
         }
@@ -232,78 +252,8 @@
     },
 
     {
-      "second": "0:07",
-      "duration": 1,
-      "scene_id": "know_them_breakdown",
-      "voiceover": "Know their problem, their words, their moment...",
-      "background": {
-        "type": "horizontal_split_panels",
-        "panels": [
-          { "color": "#0a1a30", "height": "33.3%" },
-          { "color": "#16304e", "height": "33.3%" },
-          { "color": "linear-gradient(135deg, #2a517f 0%, #6896a3 100%)", "height": "33.3%" }
-        ]
-      },
-      "elements": [
-        {
-          "id": "row_problem",
-          "type": "text",
-          "content": "Problem",
-          "position": { "x": "50%", "y": "16.5%", "anchor": "center" },
-          "style": {
-            "font_size": "76px",
-            "font_weight": 900,
-            "color": "#ffffff",
-            "text_align": "center"
-          },
-          "animation": {
-            "entrance": "vertical_snap",
-            "entrance_duration_ms": 150,
-            "easing": "ease-in-out"
-          }
-        },
-        {
-          "id": "row_words",
-          "type": "text",
-          "content": "Words",
-          "position": { "x": "50%", "y": "49.9%", "anchor": "center" },
-          "style": {
-            "font_size": "76px",
-            "font_weight": 900,
-            "color": "#ffffff",
-            "text_align": "center"
-          },
-          "animation": {
-            "entrance": "vertical_snap",
-            "entrance_duration_ms": 150,
-            "entrance_delay_ms": 50,
-            "easing": "ease-in-out"
-          }
-        },
-        {
-          "id": "row_moment",
-          "type": "text",
-          "content": "Moment",
-          "position": { "x": "50%", "y": "83.3%", "anchor": "center" },
-          "style": {
-            "font_size": "76px",
-            "font_weight": 900,
-            "color": "#0a1a30",
-            "text_align": "center"
-          },
-          "animation": {
-            "entrance": "vertical_snap",
-            "entrance_duration_ms": 150,
-            "entrance_delay_ms": 100,
-            "easing": "ease-in-out"
-          }
-        }
-      ]
-    },
-
-    {
-      "second": "0:08",
-      "duration": 2,
+      "second": "0:09",
+      "duration": 3.5,
       "scene_id": "narrowing_breakdown",
       "voiceover": "Not everyone. Not parents. New parents in JLT.",
       "background": {
@@ -316,7 +266,7 @@
       },
       "transition_from_previous": {
         "type": "vertical_slide",
-        "duration_ms": 200,
+        "duration_ms": 350,
         "easing": "ease-in-out"
       },
       "elements": [
@@ -326,16 +276,17 @@
           "content": "Everyone",
           "position": { "x": "50%", "y": "16.5%", "anchor": "center" },
           "style": {
-            "font_size": "76px",
-            "font_weight": 900,
+            "font_size": "52px",
+            "font_weight": 800,
             "color": "rgba(255,255,255,0.4)",
             "text_align": "center",
-            "strike_through": { "color": "#6896a3", "width": "4px", "draw_ms": 200 }
+            "strike_through": { "color": "#6896a3", "width": "3px", "draw_ms": 350, "draw_delay_ms": 500 }
           },
           "animation": {
-            "entrance": "vertical_snap",
-            "entrance_duration_ms": 150,
-            "easing": "ease-in-out"
+            "entrance": "fade_in_up",
+            "entrance_duration_ms": 400,
+            "entrance_delay_ms": 0,
+            "easing": "ease-out"
           }
         },
         {
@@ -344,17 +295,17 @@
           "content": "Parents",
           "position": { "x": "50%", "y": "49.9%", "anchor": "center" },
           "style": {
-            "font_size": "76px",
-            "font_weight": 900,
+            "font_size": "52px",
+            "font_weight": 800,
             "color": "rgba(255,255,255,0.4)",
             "text_align": "center",
-            "strike_through": { "color": "#6896a3", "width": "4px", "draw_ms": 200 }
+            "strike_through": { "color": "#6896a3", "width": "3px", "draw_ms": 350, "draw_delay_ms": 500 }
           },
           "animation": {
-            "entrance": "vertical_snap",
-            "entrance_duration_ms": 150,
-            "entrance_delay_ms": 400,
-            "easing": "ease-in-out"
+            "entrance": "fade_in_up",
+            "entrance_duration_ms": 400,
+            "entrance_delay_ms": 1000,
+            "easing": "ease-out"
           }
         },
         {
@@ -363,33 +314,33 @@
           "content": "New parents in JLT",
           "position": { "x": "50%", "y": "83.3%", "anchor": "center" },
           "style": {
-            "font_size": "68px",
+            "font_size": "48px",
             "font_weight": 900,
             "color": "#0a1a30",
             "text_align": "center"
           },
           "animation": {
-            "entrance": "vertical_snap",
-            "entrance_duration_ms": 150,
-            "entrance_delay_ms": 800,
-            "easing": "ease-in-out"
+            "entrance": "fade_in_up",
+            "entrance_duration_ms": 500,
+            "entrance_delay_ms": 2000,
+            "easing": "ease-out"
           }
         },
         {
           "id": "example_label",
           "type": "text",
           "content": "Example audience",
-          "position": { "x": "50%", "y": "95%", "anchor": "center" },
+          "position": { "x": "50%", "y": "94%", "anchor": "center" },
           "style": {
-            "font_size": "24px",
+            "font_size": "20px",
             "font_weight": 600,
             "color": "#0a1a30",
             "text_align": "center"
           },
           "animation": {
             "entrance": "fade_in",
-            "entrance_duration_ms": 200,
-            "entrance_delay_ms": 900,
+            "entrance_duration_ms": 300,
+            "entrance_delay_ms": 2400,
             "easing": "ease-out"
           }
         }
@@ -397,14 +348,18 @@
     },
 
     {
-      "second": "0:10",
-      "duration": 2,
+      "second": "0:12.5",
+      "duration": 3,
       "scene_id": "one_post_result",
       "voiceover": "...and write one post just for them.",
       "background": {
         "type": "gradient",
         "colors": ["#0a1a30", "#16304e", "#2a517f"],
         "direction": "160deg"
+      },
+      "transition_from_previous": {
+        "type": "cross_fade",
+        "duration_ms": 300
       },
       "elements": [
         {
@@ -413,14 +368,14 @@
           "content": "ONE POST. ONE PERSON.",
           "position": { "x": "50%", "y": "30%", "anchor": "center" },
           "style": {
-            "font_size": "64px",
+            "font_size": "44px",
             "font_weight": 900,
             "color": "#ffffff",
             "text_align": "center"
           },
           "animation": {
             "entrance": "particle_dissolve_in",
-            "entrance_duration_ms": 500,
+            "entrance_duration_ms": 700,
             "particle_count": 40,
             "particle_color": "#ffffff",
             "easing": "ease-out"
@@ -436,15 +391,15 @@
             "cell_color_b": "#2a517f",
             "highlight_cell": { "index": 4, "color": "#6896a3", "icon_color": "#0a1a30" },
             "border": "1px solid rgba(255,255,255,0.12)",
-            "cell_size": "100px",
+            "cell_size": "84px",
             "shadow": "0 12px 40px rgba(10,26,48,0.45)"
           },
-          "position": { "x": "50%", "y": "65%", "anchor": "center" },
+          "position": { "x": "50%", "y": "64%", "anchor": "center" },
           "animation": {
             "entrance": "3d_to_2d_snap",
             "start_rotation": { "x": 45, "y": 20, "z": 0 },
             "end_rotation": { "x": 0, "y": 0, "z": 0 },
-            "duration_ms": 400,
+            "duration_ms": 700,
             "easing": "ease-in-out"
           }
         }
@@ -452,8 +407,8 @@
     },
 
     {
-      "second": "0:12",
-      "duration": 2,
+      "second": "0:15.5",
+      "duration": 3,
       "scene_id": "right_people_stop",
       "voiceover": "The right people stop scrolling...",
       "background": {
@@ -466,16 +421,17 @@
           "id": "headline_right_people",
           "type": "text",
           "content": "THE RIGHT PEOPLE STOP",
-          "position": { "x": "50%", "y": "28%", "anchor": "center" },
+          "position": { "x": "50%", "y": "30%", "anchor": "center" },
           "style": {
-            "font_size": "56px",
+            "font_size": "44px",
             "font_weight": 900,
             "color": "#ffffff",
-            "text_align": "center"
+            "text_align": "center",
+            "max_width": "72%"
           },
           "animation": {
             "entrance": "fade_in",
-            "entrance_duration_ms": 300,
+            "entrance_duration_ms": 500,
             "easing": "ease-out"
           }
         },
@@ -492,24 +448,26 @@
             "glow": "radial #6896a3 at 30% opacity",
             "expand_animation": {
               "type": "pop_expand",
-              "scale": 1.25,
-              "duration_ms": 400,
+              "scale": 1.15,
+              "duration_ms": 600,
+              "delay_ms": 400,
               "easing": "ease-out"
             }
           },
           "non_highlighted_style": {
-            "blur": "4px",
-            "opacity": 0.4
+            "blur": "3px",
+            "opacity": 0.4,
+            "transition_ms": 600
           },
-          "position": { "x": "50%", "y": "65%", "anchor": "center" },
-          "grid_size": { "width": "76%", "height": "35%" }
+          "position": { "x": "50%", "y": "64%", "anchor": "center" },
+          "grid_size": { "width": "60%", "height": "30%" }
         }
       ]
     },
 
     {
-      "second": "0:14",
-      "duration": 2,
+      "second": "0:18.5",
+      "duration": 3,
       "scene_id": "wrong_people_scroll",
       "voiceover": "...and the wrong ones scroll past. Good.",
       "background": {
@@ -521,18 +479,18 @@
         {
           "id": "headline_scroll_past",
           "type": "text",
-          "content": "THE REST\nSCROLL\nPAST",
-          "position": { "x": "50%", "y": "28%", "anchor": "center" },
+          "content": "THE REST SCROLL PAST",
+          "position": { "x": "50%", "y": "30%", "anchor": "center" },
           "style": {
-            "font_size": "56px",
+            "font_size": "44px",
             "font_weight": 900,
             "color": "#ffffff",
             "text_align": "center",
-            "line_height": 1.1
+            "max_width": "72%"
           },
           "animation": {
             "entrance": "fade_in",
-            "entrance_duration_ms": 300,
+            "entrance_duration_ms": 500,
             "easing": "ease-out"
           }
         },
@@ -541,10 +499,6 @@
           "type": "2d_grid_with_highlight",
           "columns": 3,
           "rows": 3,
-          "transition_from_previous": {
-            "type": "cross_fade",
-            "duration_ms": 300
-          },
           "highlight": {
             "type": "cell",
             "index": 4,
@@ -555,18 +509,19 @@
           "non_highlighted_style": {
             "opacity": 0.4,
             "exit": "slide_out_up",
-            "stagger_delay_ms": 60,
-            "exit_duration_ms": 350,
-            "easing": "ease-in"
+            "stagger_delay_ms": 100,
+            "exit_duration_ms": 600,
+            "exit_delay_ms": 500,
+            "easing": "ease-in-out"
           },
-          "position": { "x": "50%", "y": "65%", "anchor": "center" },
-          "grid_size": { "width": "76%", "height": "35%" }
+          "position": { "x": "50%", "y": "64%", "anchor": "center" },
+          "grid_size": { "width": "60%", "height": "30%" }
         }
       ]
     },
 
     {
-      "second": "0:16",
+      "second": "0:21.5",
       "duration": 3,
       "scene_id": "specific_vs_generic",
       "voiceover": "Specific beats generic.",
@@ -578,7 +533,7 @@
       "transition_from_previous": {
         "type": "slide_in",
         "direction": "bottom-to-top",
-        "duration_ms": 350,
+        "duration_ms": 500,
         "easing": "ease-in-out"
       },
       "elements": [
@@ -586,16 +541,17 @@
           "id": "text_specific",
           "type": "text",
           "content": "Specific",
-          "position": { "x": "50%", "y": "25%", "anchor": "center" },
+          "position": { "x": "50%", "y": "27%", "anchor": "center" },
           "style": {
-            "font_size": "84px",
+            "font_size": "56px",
             "font_weight": 900,
             "color": "#0a1a30",
             "text_align": "center"
           },
           "animation": {
-            "entrance": "slide_in_top",
-            "entrance_duration_ms": 300,
+            "entrance": "fade_in_down",
+            "entrance_duration_ms": 500,
+            "entrance_delay_ms": 300,
             "easing": "ease-out"
           }
         },
@@ -605,36 +561,36 @@
           "content": ">",
           "position": { "x": "50%", "y": "50%", "anchor": "center" },
           "style": {
-            "font_size": "104px",
-            "font_weight": 900,
+            "font_size": "64px",
+            "font_weight": 800,
             "color": "#6896a3",
             "text_align": "center",
-            "background_disc": { "color": "#0a1a30", "size": "150px" }
+            "background_disc": { "color": "#0a1a30", "size": "110px" }
           },
           "animation": {
-            "entrance": "scale_bounce_in",
-            "entrance_duration_ms": 400,
-            "entrance_delay_ms": 100,
-            "start_scale": 0,
+            "entrance": "scale_in",
+            "entrance_duration_ms": 500,
+            "entrance_delay_ms": 700,
+            "start_scale": 0.6,
             "end_scale": 1,
-            "easing": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+            "easing": "ease-out"
           }
         },
         {
           "id": "text_generic",
           "type": "text",
           "content": "Generic",
-          "position": { "x": "50%", "y": "75%", "anchor": "center" },
+          "position": { "x": "50%", "y": "73%", "anchor": "center" },
           "style": {
-            "font_size": "84px",
+            "font_size": "56px",
             "font_weight": 900,
             "color": "rgba(255,255,255,0.4)",
             "text_align": "center"
           },
           "animation": {
-            "entrance": "slide_in_bottom",
-            "entrance_duration_ms": 300,
-            "entrance_delay_ms": 50,
+            "entrance": "fade_in_up",
+            "entrance_duration_ms": 500,
+            "entrance_delay_ms": 300,
             "easing": "ease-out"
           }
         }
@@ -642,8 +598,8 @@
     },
 
     {
-      "second": "0:19",
-      "duration": 3,
+      "second": "0:24.5",
+      "duration": 2.5,
       "scene_id": "outro_line_1",
       "voiceover": "If your post could be for anyone...",
       "background": {
@@ -651,27 +607,31 @@
         "colors": ["#0a1a30", "#16304e", "#2a517f"],
         "direction": "160deg"
       },
+      "transition_from_previous": {
+        "type": "cross_fade",
+        "duration_ms": 300
+      },
       "elements": [
         {
           "id": "headline_outro_1",
           "type": "text",
           "content": "IF YOUR POST COULD BE FOR ANYONE",
-          "position": { "x": "50%", "y": "50%", "anchor": "center" },
+          "position": { "x": "50%", "y": "48%", "anchor": "center" },
           "style": {
-            "font_size": "56px",
+            "font_size": "44px",
             "font_weight": 900,
             "color": "#ffffff",
-            "line_height": 1.1,
+            "line_height": 1.15,
             "text_align": "center",
-            "max_width": "85%"
+            "max_width": "72%"
           },
           "animation": {
             "entrance": "fade_in",
-            "entrance_duration_ms": 400,
+            "entrance_duration_ms": 500,
             "easing": "ease-out",
             "exit": "particle_scatter_out",
-            "exit_duration_ms": 500,
-            "exit_delay_ms": 2000,
+            "exit_duration_ms": 600,
+            "exit_delay_ms": 1700,
             "particle_count": 50,
             "particle_color": "#ffffff"
           }
@@ -680,7 +640,7 @@
     },
 
     {
-      "second": "0:22",
+      "second": "0:27",
       "duration": 3,
       "scene_id": "outro_punchline",
       "voiceover": "...it's for no one.",
@@ -688,28 +648,29 @@
         "type": "gradient",
         "colors": ["#0a1a30", "#16304e", "#2a517f"],
         "direction": "160deg",
-        "overlay": "radial #6896a3 at 25% opacity behind headline"
+        "overlay": "radial #6896a3 at 20% opacity behind headline"
       },
       "elements": [
         {
           "id": "headline_outro_2",
           "type": "text",
           "content": "IT'S FOR NO ONE",
-          "position": { "x": "50%", "y": "48%", "anchor": "center" },
+          "position": { "x": "50%", "y": "47%", "anchor": "center" },
           "style": {
-            "font_size": "80px",
+            "font_size": "56px",
             "font_weight": 900,
             "color": "#ffffff",
             "text_align": "center",
-            "max_width": "85%",
+            "max_width": "72%",
             "accent_word": { "word": "NO ONE", "color": "#6896a3" }
           },
           "animation": {
             "entrance": "particle_reassemble_in",
-            "entrance_duration_ms": 600,
+            "entrance_duration_ms": 800,
             "particle_count": 50,
             "particle_color": "#ffffff",
-            "easing": "ease-out"
+            "easing": "ease-out",
+            "hold_ms": 1800
           }
         },
         {
@@ -718,15 +679,15 @@
           "content": "@nextdigitalgrowth",
           "position": { "x": "50%", "y": "88%", "anchor": "center" },
           "style": {
-            "font_size": "30px",
+            "font_size": "22px",
             "font_weight": 600,
             "color": "rgba(255,255,255,0.8)",
             "text_align": "center"
           },
           "animation": {
             "entrance": "fade_in",
-            "entrance_duration_ms": 300,
-            "entrance_delay_ms": 800,
+            "entrance_duration_ms": 500,
+            "entrance_delay_ms": 1200,
             "easing": "ease-out"
           }
         }
@@ -737,28 +698,30 @@
 
   "global_transitions": {
     "default_between_scenes": {
-      "type": "cut",
-      "duration_ms": 0
+      "type": "cross_fade",
+      "duration_ms": 250
     },
     "easing_library": {
       "standard": "cubic-bezier(0.4, 0.0, 0.2, 1)",
       "decelerate": "cubic-bezier(0.0, 0.0, 0.2, 1)",
       "accelerate": "cubic-bezier(0.4, 0.0, 1, 1)",
-      "elastic": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+      "gentle": "cubic-bezier(0.25, 0.1, 0.25, 1)"
     }
   },
 
   "design_notes": {
     "overall_style": "Swiss-influenced minimalist editorial motion graphics on the Night Depth navy gradient. White type, with Steel Teal used only for the one chosen customer and the key word.",
-    "motion_language": "Snappy, purposeful. No decorative animation. Every motion reinforces the message — kinetic typography drives pacing.",
-    "grid_motif": "The 3x3 grid is an audience of nine people. It goes from floating cards → all nine fade out (talking to everyone) → 3D isometric with one cell lifting → flat 2D with one teal cell → that cell pops → the other eight scroll away.",
-    "color_usage": "About 70% navy gradient, 20% white, 10% teal. Teal (#6896a3) and the Tide gradient appear only on the chosen customer cell, the '>' symbol and 'NO ONE', so every teal moment points at the same idea: one person. Text on teal or Tide is always #0a1a30; never small white text on teal.",
+    "type_size": "Headlines are 44–56px on a 1080px-wide frame, with a 72% max width, so there is always generous navy space around the words. Nothing goes above 56px.",
+    "pacing": "Each scene holds for at least 3 seconds (the last one holds for about 2 seconds after the text lands). Entrances run 400–700ms, then the frame rests. Only one thing moves at a time: text first, then the grid. Scenes are joined with soft 250–300ms cross-fades instead of hard cuts.",
+    "motion_language": "Calm and purposeful. No bounce or snap. Every motion reinforces the message.",
+    "grid_motif": "The 3x3 grid is an audience of nine people. It goes from floating cards → all nine fade out (talking to everyone) → 3D isometric with one cell lifting → flat 2D with one teal cell → that cell pops → the other eight drift away.",
+    "color_usage": "About 70% navy gradient, 20% white, 10% teal. Teal (#6896a3) and the Tide gradient appear only on the chosen customer cell, the '>' symbol and 'NO ONE'. Text on teal or Tide is always #0a1a30; never small white text on teal.",
     "wrong_state": "No red. 'Everyone', 'Parents', 'Generic' and the faded audience cards use white at 40% opacity, with a thin teal strike-through where something is ruled out.",
     "contrast": "The 'Specific > Generic' split uses the Mist light variant on top with #0a1a30 text. The '>' sits on a small #0a1a30 disc so the teal stays readable across both halves.",
-    "particle_effect": "Letter-scatter dissolve used at two key moments: text exits on scene 0:19 and reassembles on 0:22. Particles are white (#ffffff). Count ~50 particles per character cluster.",
-    "typography_guidance": "All headline text is uppercase, weight 800-900. Only the three-row split screens (Problem/Words/Moment, Everyone/Parents/New parents in JLT) and Specific/Generic use mixed case to signal they are labels, not headlines.",
+    "particle_effect": "Letter-scatter dissolve used at two moments: text exits on scene 0:24.5 and reassembles on 0:27. Particles are white (#ffffff).",
+    "typography_guidance": "All headline text is uppercase, weight 800-900. Only the three-row split (Everyone / Parents / New parents in JLT) and Specific / Generic use mixed case to signal they are labels, not headlines.",
     "hook_rule": "Hook text and hook visual say the same thing: 'talks to everyone' is shown as nine people, and 'sells to no one' is all nine fading out.",
     "examples": "'New parents in JLT' is an illustrative audience, labelled 'Example audience' on screen. Swap it for the client's real customer.",
-    "voiceover_sync": "Each scene cut should land within 100ms of the voiceover beat. The piece is voice-driven — visuals illustrate, not decorate."
+    "voiceover_sync": "Each scene starts about 200ms before its voiceover line and holds after it. Leave a 400ms breath between lines."
   }
 }
