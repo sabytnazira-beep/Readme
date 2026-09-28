@@ -28,7 +28,7 @@ BOOKMARK = ('<svg width="18" height="22" viewBox="0 0 18 22" fill="none" stroke=
             'stroke-linejoin="round"><path d="M2 2H16V20L9 15L2 20Z"/></svg>')
 
 def svg(body, color):
-    return (f'<svg width="360" height="340" viewBox="0 0 360 340" fill="none" stroke="{color}" stroke-width="5" '
+    return (f'<svg width="360" height="340" viewBox="0 0 360 340" fill="none" stroke="{color}" stroke-width="3.5" '
             f'stroke-linecap="round" stroke-linejoin="round">{body}</svg>')
 
 def bubble(x, y, w=64, h=42, dots=True):
@@ -69,8 +69,7 @@ ILL[1] = (
 _funnel = '<path d="M40 70H320L215 185V238H145V185Z"/>'
 ILL[2] = (
     svg(_funnel + bubble(70, 8) + bubble(150, 0) + bubble(232, 10) + bubble(118, 92, 56, 36) + bubble(190, 96, 56, 36)
-        + '<path d="M180 262V300" stroke-dasharray="2 14"/>'
-        f'<text x="180" y="336" font-size="26" font-weight="700" fill="{GREY_TXT}" stroke="none" text-anchor="middle">0 out</text>', GREY),
+        , GREY),
     svg('<path d="M40 40H320L215 140V180H145V140Z"/>' + bubble(100, 62, 56, 34) + bubble(196, 62, 56, 34)
         + '<path d="M165 186C150 220 110 225 92 240M180 186V236M195 186C210 220 250 225 268 240"/>'
         + calendar_tick(62, 262) + calendar_tick(150, 262) + calendar_tick(238, 262), TEAL),
@@ -82,7 +81,7 @@ ILL[3] = (
         '<path d="M140 50V60M240 150H230M140 250V240M40 150H50" stroke-width="6"/>'
         + bubble(236, 14, 116, 56, dots=False)
         + f'<text x="294" y="51" font-size="26" font-weight="700" fill="{GREY_TXT}" stroke="none" text-anchor="middle">Seen</text>'
-        + f'<text x="140" y="318" font-size="30" font-weight="800" fill="{GREY_TXT}" stroke="none" text-anchor="middle">3 hours</text>', GREY),
+        , GREY),
     svg('<circle cx="160" cy="185" r="115"/><path d="M142 48H178M160 48V70"/>'
         '<path d="M160 115A70 70 0 0 1 219 147" stroke-width="10"/>'
         f'<text x="160" y="212" font-size="56" font-weight="800" fill="{NAVY5}" stroke="none" text-anchor="middle">2 min</text>'
@@ -168,46 +167,35 @@ S.append(slide(2, "navy", f"""
 
 # 3-8 White "sign" slides
 SIGNS = [
-    ("Cost per customer",
-     "A good team knows this number, and it goes down. <b>If nobody can tell you the number, that’s your answer.</b>",
-     "Nobody knows the number", "Known, and going down", "Example figures."),
-    ("Enquiries → customers",
-     "Messages are nice. <b>Paying customers are the job.</b>",
-     "Lots of messages, no bookings", "Messages turn into bookings", None),
-    ("Reply time",
-     "People message 3–4 businesses at once. <b>The fastest reply usually wins.</b>",
-     "Left on “Seen” for 3 hours", "Replied in 2 minutes", "Example times."),
-    ("Repeat customers",
-     "Winning a customer is expensive. <b>Keeping one is cheap.</b>",
-     "They buy once and leave", "They keep coming back", None),
-    ("Shares, not likes",
-     "A like is a nod. <b>A share is a recommendation.</b>",
-     "A like: +1, then forgotten", "A share: sent to 3 friends", None),
-    ("Reports in AED",
-     "Followers and views are clues, <b>not results.</b>",
-     "Looks busy, says nothing", "Shows what you earned", None),
+    ("Cost per customer", "If nobody knows it, that’s your answer.", "Example figures."),
+    ("Enquiries → customers", "Messages aren’t the job. Customers are.", None),
+    ("Reply time", "The fastest reply usually wins.", "Example times."),
+    ("Repeat customers", "Keeping a customer is cheaper than winning one.", None),
+    ("Shares, not likes", "A share is a recommendation.", None),
+    ("Reports in AED", "Views are clues, not results.", None),
 ]
-for i, (title, body, bad_cap, good_cap, note) in enumerate(SIGNS, 1):
+for i, (title, line, note) in enumerate(SIGNS, 1):
     bad, good = ILL[i]
     foot = f'<div class="note">{note}</div>' if note else ""
     S.append(slide(i + 2, "light", f"""
 <div class="tagrow"><span class="tag">#{i}</span><span class="title">{title}</span></div>
-<p class="body">{body}</p>
-<div class="cards">
-  <div class="card bad"><div class="label">{cross(GREY_TXT)}<span>Bad sign</span></div>{bad}<div class="cap">{bad_cap}</div></div>
-  <div class="card good"><div class="label">{check(NAVY5)}<span>Good sign</span></div>{good}<div class="cap">{good_cap}</div></div>
+<p class="body">{line}</p>
+<div class="pair">
+  <div class="side">{cross(GREY, 26, 2.6)}{bad}</div>
+  <div class="divider"></div>
+  <div class="side">{check(TEAL, 28, 2.8)}{good}</div>
 </div>
 <svg class="abs" width="1080" height="1350" viewBox="0 0 1080 1350" fill="none">
-  <path d="M0 1196H1080" stroke="{TEAL}" stroke-width="4"/>
+  <path d="M0 1196H1080" stroke="{TEAL}" stroke-width="2.5"/>
 </svg>{foot}"""))
 
 # 9 Scorecard
-QS = ["What does each new customer cost us?",
-      "How many enquiries became customers?",
-      "How fast do we reply to messages?",
-      "How many customers came back?",
-      "How many people shared our posts?",
-      "What did we make this month, in AED?"]
+QS = ["What does a new customer cost?",
+      "How many enquiries buy?",
+      "How fast do we reply?",
+      "Who came back?",
+      "Who shared us?",
+      "What did we make, in AED?"]
 rows = "".join(f'<li><span class="tick">{check(TEAL, 28, 3.2)}</span><span>{q}</span></li>' for q in QS)
 S.append(slide(9, "navy", f"""
 <h1 class="score">Your team is doing a good job if they can answer {t('these:')}</h1>
@@ -217,11 +205,10 @@ S.append(slide(9, "navy", f"""
 # 10 CTA
 S.append(slide(10, "navy", f"""
 <h1 class="cta">Not sure what your {t('numbers')} are?</h1>
-<p class="sub">DM us one word. We’ll look at them with you.</p>
-<div class="glow" style="background:radial-gradient(ellipse 460px 300px at 590px 965px, rgba(104,150,163,.35), transparent 100%)"></div>
+<div class="glow" style="background:radial-gradient(ellipse 460px 300px at 590px 875px, rgba(104,150,163,.35), transparent 100%)"></div>
 <svg class="abs" width="1080" height="1350" viewBox="0 0 1080 1350" fill="none">
-  <path d="M0 1150C140 1150 110 965 222 965" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
-  <circle cx="226" cy="965" r="11" fill="#fff"/>
+  <path d="M0 1150C140 1150 110 875 222 875" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="226" cy="875" r="11" fill="#fff"/>
 </svg>
 <div class="button">DM “AUDIT”</div>"""))
 
@@ -256,25 +243,17 @@ h1.cta{{top:300px;font-size:108px;line-height:1.02;letter-spacing:-3.5px}}
 .tagrow{{position:absolute;left:72px;top:176px;display:flex;align-items:center;gap:28px}}
 .tag{{background:{NAVY9};color:#fff;font-size:48px;font-weight:800;padding:8px 22px;border-radius:6px;letter-spacing:-1px}}
 .title{{font-size:56px;font-weight:800;letter-spacing:-1.5px}}
-.body{{position:absolute;left:72px;right:72px;top:318px;font-size:44px;line-height:1.28;font-weight:400;letter-spacing:-.6px}}
-.body b{{font-weight:800}}
-.cards{{position:absolute;left:72px;right:72px;top:594px;height:552px;display:flex;gap:24px}}
-.card{{flex:1;background:#fff;border-radius:28px;padding:28px 24px 0;display:flex;flex-direction:column;align-items:center;
-  border:2px solid rgba(10,26,48,.08)}}
-.card.good{{border:3px solid {TEAL}}}
-.label{{align-self:flex-start;display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800;text-transform:uppercase;
-  letter-spacing:2px;margin-bottom:22px}}
-.bad .label,.bad .cap{{color:{GREY_TXT}}}
-.good .label,.good .cap{{color:{NAVY5}}}
-.cap{{margin-top:22px;font-size:27px;font-weight:700;text-align:center;letter-spacing:-.3px}}
+.body{{position:absolute;left:72px;right:72px;top:312px;font-size:46px;line-height:1.25;font-weight:400;letter-spacing:-.6px;color:rgba(10,26,48,.85)}}
+.pair{{position:absolute;left:72px;right:72px;top:560px;height:540px;display:flex;align-items:center}}
+.side{{flex:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px}}
+.divider{{width:1px;height:340px;background:rgba(10,26,48,.12)}}
 .qs{{position:absolute;left:72px;right:72px;top:470px;list-style:none}}
-.qs li{{display:flex;align-items:center;gap:26px;height:92px;font-size:38px;font-weight:600;letter-spacing:-.5px;
-  border-bottom:1px solid rgba(255,255,255,.14)}}
-.tick{{flex:none;width:56px;height:56px;border-radius:50%;border:3px solid {TEAL};display:flex;align-items:center;justify-content:center}}
-.closer{{position:absolute;left:72px;right:72px;top:1072px;padding:30px 36px;border-radius:24px;background:rgba(10,26,48,.6);
-  color:{TEAL};font-size:50px;font-weight:800;letter-spacing:-1px}}
+.qs li{{display:flex;align-items:center;gap:26px;height:88px;font-size:40px;font-weight:500;letter-spacing:-.5px;
+  }}
+.tick{{flex:none;width:52px;height:52px;border-radius:50%;border:2px solid {TEAL};display:flex;align-items:center;justify-content:center}}
+.closer{{position:absolute;left:72px;right:72px;top:1060px;color:{TEAL};font-size:48px;font-weight:800;letter-spacing:-1px}}
 .sub{{position:absolute;left:72px;right:72px;top:690px;font-size:40px;line-height:1.3;color:rgba(255,255,255,.88)}}
-.button{{position:absolute;left:260px;top:890px;width:660px;height:150px;border-radius:75px;
+.button{{position:absolute;left:260px;top:800px;width:660px;height:150px;border-radius:75px;
   background:linear-gradient(135deg,{NAVY5} 0%,{TEAL} 60%);color:{NAVY9};font-size:66px;font-weight:800;letter-spacing:-1.5px;
   display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(10,26,48,.45)}}
 """

@@ -20,9 +20,9 @@
 | 10 | CTA: "Not sure what your numbers are?" with a DM "AUDIT" button; the line from slide 1 comes back and ends beside it | Night Depth |
 
 ## Colour notes (see `brand/brand-guide.md`)
-- Bad-sign line art is navy at 40%. Its small labels are navy at 65% so they stay readable.
-- Good-sign line art is Steel Teal `#6896a3`. Its text is `#2a517f`, because small teal text on white is only 3.2:1.
+- Slides 3–8 have a title, one short line and a side-by-side pair with no captions. The left side (✕, navy line art at 40%) is the bad sign; the right side (✓, Steel Teal `#6896a3`) is the good sign.
+- Text inside the good-sign art is `#2a517f`, because small teal text on white is only 3.2:1.
 - A thin teal line runs along the bottom of slides 3–8 to keep people swiping.
-- Slide 9's teal closing line sits on a dark `#0a1a30` panel, because teal on the light end of the gradient is hard to read.
+- Slide 9's teal closing line is large bold text, which keeps it readable on the gradient.
 - The CTA uses the Tide gradient, weighted towards teal so the `#0a1a30` button text has enough contrast.
 - AED 200 → 160 (slide 3) and 3 hours / 2 minutes (slide 5) are marked on the slide as examples, not client results.
