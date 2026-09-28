@@ -2,6 +2,13 @@
 
 **Ladder level:** SAVE (with a strong share pull) · **Audience:** owners and marketing managers across all segments · **Format:** 10 slides, 4:5
 
+**Brand colours** (see [brand guide](../brand/brand-guide.md)):
+- **Background:** Night Depth gradient `#0a1a30 → #16304e → #2a517f` (160°) on every slide.
+- **Text:** headlines in white. The key number or word on each slide is in Steel Teal `#6896a3`.
+- **Progress markers** ("1/7") are in Steel Teal. Icons are white line icons with Steel Teal fills.
+- **Slide 9** uses the light Mist variant (white → `#e8eff1`, navy text) as a pattern break.
+- **Slide 10's CTA button** uses the Tide gradient `#2a517f → #6896a3` with navy `#0a1a30` text.
+
 **Design rules:** one big number or word per slide, one simple sentence, one AED example. Use the same layout on every slide so people swipe fast. Slides 2–8 are numbered "1/7" to "7/7" so viewers feel progress and finish the carousel.
 
 > Example numbers are illustrative. Label them "example" in the design.
@@ -11,7 +18,7 @@
 ### Slide 1: Cover
 - **Headline:** Every business needs to know these 7 numbers.
 - **Subline:** Most only check one: likes.
-- **Visual:** A phone showing a heart icon with a big red ✕, and 7 blank number tiles below it.
+- **Visual:** A phone showing a white heart icon struck through in Steel Teal `#6896a3`, and 7 blank tiles (`#16304e` with a thin teal outline) below it.
 
 ### Slide 2: 1/7 · Cost per customer
 - **Headline:** What does one new customer cost you?
@@ -55,7 +62,7 @@
 
 ### Slide 9: Stop obsessing over these
 - **Headline:** Nice to see. Not what pays you.
-- **List (crossed out):** ~~Likes~~ · ~~Followers~~ · ~~Views~~
+- **List (crossed out):** ~~Likes~~ · ~~Followers~~ · ~~Views~~ (navy text at 40% opacity, Steel Teal strike-through, on a Mist light background)
 - **Simple line:** They feel good, but they don't pay rent. Use them as clues, not goals.
 - **Visual:** A scoreboard with those three words fading out.
 
@@ -63,7 +70,7 @@
 - **Headline:** Know your 7 numbers?
 - **Subline:** If not, we'll find them with you in a free 15-minute Growth Audit.
 - **CTA:** Save this 🔖 · Send it to your business partner ✈️ · DM **AUDIT**
-- **Visual:** The 7 number tiles from the cover, now filled in.
+- **Visual:** The 7 tiles from the cover, now filled with Tide gradient and white numbers. A Glow spotlight (radial `#6896a3` at 30%) sits behind the CTA button.
 
 ---
 
