@@ -1,0 +1,410 @@
+<title>Signal Matrix Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --navy-950:#06111f; --navy-900:#0a1a30; --navy-700:#16304e; --navy-500:#2a517f;
+  --teal:#6896a3; --teal-hi:#8fb7c2; --white:#ffffff;
+  --ink:#ffffff; --ink-2:rgba(255,255,255,.72); --ink-3:rgba(255,255,255,.48);
+  --line:rgba(104,150,163,.18); --line-2:rgba(104,150,163,.34);
+  --panel:rgba(22,48,78,.55); --panel-2:rgba(10,26,48,.72);
+  --grad-night:linear-gradient(160deg,#0a1a30 0%,#16304e 55%,#2a517f 100%);
+  --grad-tide:linear-gradient(135deg,#2a517f 0%,#6896a3 100%);
+  --ok:#7fc8a9; --warn:#e2c07a;
+  --f-display:"Sora",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--navy-950);color:var(--ink);font:14px/1.5 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;background:var(--grad-night);opacity:.9;z-index:-2}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:48px 48px;mask-image:radial-gradient(ellipse at 60% 20%,#000 0%,transparent 70%);opacity:.5}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--teal-hi);outline-offset:2px;border-radius:6px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.label{font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+
+/* ---------- shell ---------- */
+.app{display:grid;grid-template-columns:260px minmax(0,1fr) 360px;min-height:100%}
+header.top{grid-column:1/-1;display:flex;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid var(--line);
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(6,17,31,.72);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:10px;font:700 15px var(--f-display);letter-spacing:-.01em}
+.brand .dot{width:10px;height:10px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(104,150,163,.2),0 0 18px var(--teal);animation:beat 2.4s var(--ease) infinite}
+@keyframes beat{50%{box-shadow:0 0 0 7px rgba(104,150,163,.06),0 0 28px var(--teal)}}
+.crumbs{color:var(--ink-3);font-size:13px;display:flex;gap:8px;flex-wrap:wrap}
+.crumbs b{color:var(--ink);font-weight:500}
+.top .sp{flex:1}
+.cmdk{display:flex;align-items:center;gap:10px;padding:8px 12px;min-width:260px;border:1px solid var(--line-2);border-radius:10px;background:var(--panel-2);color:var(--ink-3);font-size:13px}
+.cmdk kbd,.kbd{font:500 11px var(--f-mono);padding:2px 6px;border:1px solid var(--line-2);border-radius:5px;color:var(--ink-2)}
+.cmdk:hover{border-color:var(--teal);color:var(--ink-2)}
+
+/* ---------- rail ---------- */
+aside.rail{border-right:1px solid var(--line);padding:20px 16px;display:flex;flex-direction:column;gap:22px}
+.pack{padding:14px;border:1px solid var(--line-2);border-radius:12px;background:var(--panel)}
+.pack .row{display:flex;justify-content:space-between;align-items:baseline}
+.pack .big{font:700 22px var(--f-display)}
+.bar{height:4px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:var(--grad-tide);border-radius:4px;transform-origin:left;animation:grow 1.2s var(--ease) both}
+@keyframes grow{from{transform:scaleX(0)}}
+.phase{display:flex;flex-direction:column;gap:2px}
+.phase h4{margin:0 0 6px;display:flex;justify-content:space-between}
+.step{display:grid;grid-template-columns:18px 1fr auto;align-items:center;gap:10px;padding:7px 8px;border-radius:8px;color:var(--ink-2);font-size:13.5px;border:0;background:none;text-align:left;width:100%}
+.step:hover{background:rgba(104,150,163,.08);color:var(--ink)}
+.step .node{width:10px;height:10px;border-radius:50%;border:2px solid var(--teal);justify-self:center}
+.step.done .node{background:var(--teal)}
+.step.stale .node{border-color:var(--warn);background:transparent}
+.step.active{background:rgba(104,150,163,.14);color:var(--ink)}
+.step.active .node{background:var(--white);border-color:var(--white);box-shadow:0 0 12px var(--teal)}
+.step small{color:var(--ink-3);font:12px var(--f-mono)}
+.phase .thread{position:relative}
+.phase .thread::before{content:"";position:absolute;left:16px;top:12px;bottom:12px;width:1px;background:var(--line-2)}
+
+/* ---------- main ---------- */
+main{padding:24px 28px 60px;display:flex;flex-direction:column;gap:22px;min-width:0}
+.alert{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 14px;border:1px solid rgba(226,192,122,.35);border-radius:10px;background:rgba(226,192,122,.06);font-size:13px}
+.alert .pip{width:8px;height:8px;border-radius:50%;background:var(--warn);box-shadow:0 0 10px var(--warn)}
+.alert .txt{flex:1;min-width:220px;color:var(--ink-2)}
+.alert .txt b{color:var(--ink);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:9px;border:1px solid var(--line-2);background:var(--panel-2);font-size:13px;font-weight:500;transition:border-color .2s,transform .2s var(--ease)}
+.btn:hover{border-color:var(--teal);transform:translateY(-1px)}
+.btn.cta{background:var(--grad-tide);color:var(--navy-900);border-color:transparent;font-weight:600}
+.btn.cta:hover{box-shadow:0 8px 30px -8px rgba(104,150,163,.7)}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.head h1{margin:0;font:700 30px/1.1 var(--f-display);letter-spacing:-.02em;text-wrap:balance}
+.head h1 em{font-style:normal;color:var(--teal)}
+.head p{margin:6px 0 0;color:var(--ink-3);max-width:60ch}
+.seg{display:flex;padding:3px;border:1px solid var(--line-2);border-radius:10px;background:var(--panel-2)}
+.seg button{border:0;background:none;padding:6px 12px;border-radius:7px;color:var(--ink-3);font-size:13px}
+.seg button[aria-pressed="true"]{background:rgba(104,150,163,.2);color:var(--ink)}
+
+/* ---------- ladder ---------- */
+.ladder{position:relative;padding:22px 20px 18px;border:1px solid var(--line-2);border-radius:16px;background:var(--panel);overflow:hidden}
+.ladder .meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.ladder .meta .mix{color:var(--ink-3);font-size:13px}
+.ladder .meta .mix b{color:var(--ink);font-weight:500}
+.rungs{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.wire{position:absolute;left:10%;right:10%;top:38px;height:2px;background:var(--line-2);z-index:0}
+.wire .pulse{position:absolute;top:-3px;width:90px;height:8px;border-radius:8px;background:radial-gradient(closest-side,var(--teal-hi),transparent);animation:travel 3.6s linear infinite}
+@keyframes travel{from{left:-90px}to{left:100%}}
+.rung{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 4px 4px;border:0;background:none;text-align:center}
+.ring{position:relative;width:78px;height:78px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:5}
+.ring .bg{stroke:rgba(255,255,255,.08)}
+.ring .fg{stroke:var(--teal);stroke-linecap:round;transition:stroke-dashoffset 1s var(--ease)}
+.ring .core{position:absolute;inset:11px;border-radius:50%;background:var(--navy-900);display:grid;place-items:center;border:1px solid var(--line-2);transition:background .3s,box-shadow .3s}
+.ring .core span{font:600 17px var(--f-mono)}
+.rung .name{font:600 14px var(--f-display)}
+.rung .job{font-size:12px;color:var(--ink-3);max-width:16ch}
+.rung .pct{font:500 11px var(--f-mono);color:var(--teal);letter-spacing:.06em}
+.rung:hover .core{box-shadow:0 0 0 1px var(--teal),0 0 24px -4px var(--teal)}
+.rung[aria-pressed="true"] .core{background:var(--grad-tide);box-shadow:0 0 30px -2px var(--teal)}
+.rung[aria-pressed="true"] .core span{color:var(--navy-900)}
+.rung[aria-pressed="true"] .name{color:var(--teal-hi)}
+.chev{position:absolute;right:-9px;top:31px;color:var(--ink-3);font:12px var(--f-mono)}
+
+/* ---------- matrix ---------- */
+.mhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.mhead h2{margin:0;font:600 16px var(--f-display)}
+.mhead h2 span{color:var(--ink-3);font:400 13px var(--f-body);margin-left:8px}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:4px 10px;border-radius:999px;border:1px solid var(--line-2);background:none;font:500 12px var(--f-mono);color:var(--ink-2)}
+.chip[aria-pressed="true"]{border-color:var(--teal);color:var(--ink);background:rgba(104,150,163,.16)}
+.list{display:flex;flex-direction:column;gap:6px}
+.item{display:grid;grid-template-columns:52px minmax(0,1fr) 118px 88px;align-items:center;gap:14px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel-2);text-align:left;width:100%;
+  transition:border-color .2s,background .2s,transform .25s var(--ease);animation:rise .5s var(--ease) both}
+@keyframes rise{from{opacity:.001;transform:translateY(8px)}}
+.item:hover{border-color:var(--line-2);background:rgba(22,48,78,.7);transform:translateX(2px)}
+.item[aria-selected="true"]{border-color:var(--teal);background:rgba(42,81,127,.35);box-shadow:inset 3px 0 0 var(--teal)}
+.id{font:600 13px var(--f-mono);color:var(--teal);display:flex;flex-direction:column;gap:2px}
+.id small{font:500 9.5px var(--f-mono);letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
+.hook{font-size:14.5px;line-height:1.4}
+.hook .seg-tag{display:block;margin-top:3px;font:12px var(--f-mono);color:var(--ink-3)}
+.cells{display:flex;gap:3px;align-items:center}
+.cells i{width:10px;height:14px;border-radius:2px;background:rgba(255,255,255,.1)}
+.cells i.on{background:var(--teal)}
+.cells b{margin-left:6px;font:500 11px var(--f-mono);color:var(--ink-3)}
+.state{justify-self:end;display:inline-flex;align-items:center;gap:6px;font:500 11px var(--f-mono);padding:3px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2);white-space:nowrap}
+.state::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ink-3)}
+.state.ready{border-color:rgba(127,200,169,.4)}.state.ready::before{background:var(--ok)}
+.state.gap{border-color:rgba(226,192,122,.4)}.state.gap::before{background:var(--warn)}
+.empty{padding:28px;text-align:center;color:var(--ink-3);border:1px dashed var(--line-2);border-radius:12px}
+.scan{position:relative}
+.scan.run::after{content:"";position:absolute;left:0;right:0;height:60px;top:-60px;background:linear-gradient(transparent,rgba(104,150,163,.25),transparent);animation:sweep 1.1s var(--ease)}
+@keyframes sweep{to{top:100%}}
+
+/* ---------- inspector ---------- */
+aside.insp{border-left:1px solid var(--line);padding:20px;display:flex;flex-direction:column;gap:16px;position:sticky;top:57px;height:calc(100vh - 57px);overflow:auto}
+.insp .hd{display:flex;justify-content:space-between;align-items:center}
+.insp .hd .kbd{margin-left:4px}
+.frame{aspect-ratio:9/16;width:200px;max-width:100%;align-self:center;border-radius:18px;background:var(--grad-night);position:relative;overflow:hidden;border:1px solid var(--line-2);
+  display:flex;flex-direction:column;justify-content:space-between;padding:18px 14px;box-shadow:0 30px 60px -30px #000}
+.frame::before{content:"";position:absolute;width:180px;height:180px;left:50%;top:38%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(104,150,163,.32),transparent)}
+.frame .lvl{position:relative;font:500 9px var(--f-mono);letter-spacing:.14em;color:var(--teal);text-transform:uppercase}
+.frame .ht{position:relative;font:700 19px/1.2 var(--f-display);letter-spacing:-.01em;text-wrap:balance}
+.frame .ht em{font-style:normal;color:var(--teal)}
+.frame .ctab{position:relative;align-self:flex-start;padding:7px 12px;border-radius:8px;background:var(--grad-tide);color:var(--navy-900);font:600 11px var(--f-body)}
+.frame .prog{position:relative;display:flex;gap:4px}
+.frame .prog i{flex:1;height:2px;background:rgba(255,255,255,.2);border-radius:2px}
+.frame .prog i:first-child{background:var(--teal)}
+.swap{animation:swap .45s var(--ease)}
+@keyframes swap{from{opacity:.001;transform:translateY(6px) scale(.98)}}
+.ratio{display:flex;height:6px;border-radius:6px;overflow:hidden}
+.ratio span:nth-child(1){flex:70;background:var(--navy-500)}.ratio span:nth-child(2){flex:20;background:var(--white)}.ratio span:nth-child(3){flex:10;background:var(--teal)}
+.dl{display:grid;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.dl div{display:grid;grid-template-columns:112px 1fr;gap:10px;padding:9px 12px;border-top:1px solid var(--line);font-size:13px}
+.dl div:first-child{border-top:0}
+.dl dt{color:var(--ink-3);font:500 10.5px/1.6 var(--f-mono);letter-spacing:.08em;text-transform:uppercase}
+.dl dd{margin:0;color:var(--ink-2)}
+.dl dd.miss{color:var(--warn)}
+.note{font-size:12px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:12px}
+
+/* ---------- palette ---------- */
+.veil{position:fixed;inset:0;background:rgba(6,17,31,.6);backdrop-filter:blur(6px);z-index:50;display:grid;place-items:start center;padding:12vh 16px 0}
+.pal{width:min(560px,100%);border:1px solid var(--line-2);border-radius:14px;background:var(--navy-900);box-shadow:0 40px 80px -20px #000;overflow:hidden;animation:swap .25s var(--ease)}
+.pal input{width:100%;padding:16px 18px;background:none;border:0;border-bottom:1px solid var(--line);color:var(--ink);font:15px var(--f-body);outline:none}
+.pal ul{list-style:none;margin:0;padding:6px;max-height:320px;overflow:auto}
+.pal li{display:flex;justify-content:space-between;padding:10px 12px;border-radius:8px;color:var(--ink-2);cursor:pointer}
+.pal li.on{background:rgba(104,150,163,.16);color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);padding:10px 16px;border-radius:10px;background:var(--navy-700);border:1px solid var(--teal);font-size:13px;z-index:60;animation:swap .3s var(--ease)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1180px){.app{grid-template-columns:230px minmax(0,1fr)}aside.insp{grid-column:1/-1;position:static;height:auto;border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:200px 1fr;align-items:start}aside.insp .hd,aside.insp .note{grid-column:1/-1}}
+@media (max-width:780px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  aside.rail{border-right:0;border-bottom:1px solid var(--line);padding:16px}
+  aside.rail .phase{display:none}
+  main{padding:20px 16px 40px}
+  header.top{padding:12px 16px}
+  .crumbs{display:none}
+  .cmdk{min-width:0}
+  .cmdk .t{display:none}
+  .rungs{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+  .ring{width:54px;height:54px}.ring .core{inset:8px}.ring .core span{font-size:12px}
+  .wire{top:26px}.chev{display:none}
+  .rung .job{display:none}.rung .name{font-size:12px}
+  .item{grid-template-columns:44px minmax(0,1fr);row-gap:8px}
+  .item .cells{grid-column:2}.item .state{grid-column:2;justify-self:start}
+  aside.insp{grid-template-columns:1fr;padding:16px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="brand"><span class="dot" aria-hidden="true"></span>Signal</div>
+    <nav class="crumbs" aria-label="Breadcrumb"><span>Clients</span><span>/</span><span>nextdigital</span><span>/</span><b>Strategy</b></nav>
+    <span class="sp"></span>
+    <button class="cmdk" id="open-cmd" type="button"><span aria-hidden="true">⌕</span><span class="t">Jump to a row, stage or command</span><kbd>⌘K</kbd></button>
+  </header>
+
+  <aside class="rail" aria-label="Strategy pipeline">
+    <div class="pack">
+      <div class="row"><span class="label">Client pack</span><span class="big mono">7<span style="color:var(--ink-3)">/8</span></span></div>
+      <div class="bar"><i style="width:87.5%"></i></div>
+    </div>
+
+    <div class="phase">
+      <h4 class="label"><span>01 Research</span><span>3/3</span></h4>
+      <div class="thread">
+        <button class="step done" type="button"><span class="node"></span>Social media audit<small></small></button>
+        <button class="step done" type="button"><span class="node"></span>Competitor audit<small></small></button>
+        <button class="step stale" type="button"><span class="node"></span>Positioning &amp; offer<small>stale</small></button>
+      </div>
+    </div>
+    <div class="phase">
+      <h4 class="label"><span>02 Decide</span><span>4/4</span></h4>
+      <div class="thread">
+        <button class="step stale" type="button"><span class="node"></span>Positioning<small>stale</small></button>
+        <button class="step done" type="button"><span class="node"></span>Segments<small>14</small></button>
+        <button class="step done" type="button"><span class="node"></span>Channel plan<small>5/5</small></button>
+        <button class="step done" type="button"><span class="node"></span>Objective &amp; scope<small></small></button>
+      </div>
+    </div>
+    <div class="phase">
+      <h4 class="label"><span>03 Plan</span><span>1/1</span></h4>
+      <div class="thread">
+        <button class="step active" type="button" aria-current="page"><span class="node"></span>Content matrix<small>10</small></button>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="alert" role="status">
+      <span class="pip" aria-hidden="true"></span>
+      <span class="txt"><b>2 sources are older than the brief</b> saved Sep 22, 13:26. Positioning and Reverse Engineer still reflect the previous brief, so 3 rows below may drift.</span>
+      <button class="btn" type="button" id="regen">↻ Regenerate 2</button>
+    </div>
+
+    <div class="head">
+      <div>
+        <span class="label">Plan · Whole client</span>
+        <h1>Content matrix <em>10</em> rows</h1>
+        <p>Every row is one post. Its eight cells feed the script writer directly, so a full row means a script with nothing left to retype.</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <div class="seg" role="group" aria-label="View"><button type="button" aria-pressed="true">Ladder</button><button type="button" aria-pressed="false">Table</button></div>
+        <button class="btn cta" type="button" id="gen">✦ Generate rows</button>
+      </div>
+    </div>
+
+    <section class="ladder" aria-label="Signal ladder">
+      <div class="meta">
+        <span class="label">Signal ladder · reach → conversion</span>
+        <span class="mix">Target mix <b class="mono">4 / 2 / 2 / 1 / 1</b> · on plan</span>
+      </div>
+      <div class="rungs" id="rungs">
+        <div class="wire" aria-hidden="true"><span class="pulse"></span></div>
+      </div>
+    </section>
+
+    <section class="scan" id="scan" aria-label="Rows">
+      <div class="mhead" style="margin-bottom:12px">
+        <h2 id="mtitle">All rows<span id="mcount"></span></h2>
+        <div class="filters" id="filters">
+          <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
+          <button class="chip" type="button" data-f="gap" aria-pressed="false">Missing cells</button>
+          <button class="chip" type="button" data-f="ready" aria-pressed="false">Script-ready</button>
+        </div>
+      </div>
+      <div class="list" id="list" role="listbox" aria-label="Matrix rows"></div>
+    </section>
+  </main>
+
+  <aside class="insp" aria-label="Row inspector" id="insp"></aside>
+</div>
+
+<div class="veil" id="veil" hidden>
+  <div class="pal" role="dialog" aria-label="Command menu">
+    <input id="cmd-input" placeholder="Type a row ID, hook or command…" autocomplete="off">
+    <ul id="cmd-list"></ul>
+  </div>
+</div>
+
+<script>
+const RUNGS=[
+  {k:"share",n:"Share",job:"Reaches people who don't follow yet",target:4,cta:"Send this to your team"},
+  {k:"save",n:"Save",job:"Proves expertise, brings them back",target:2,cta:"Save for your next launch"},
+  {k:"watch",n:"Watch",job:"Builds depth with a slow reveal",target:2,cta:"Part 2 is on our profile"},
+  {k:"profile",n:"Profile",job:"Turns a visit into a follow",target:1,cta:"See it pinned"},
+  {k:"convert",n:"Convert",job:"Starts the DM conversation",target:1,cta:"DM AUDIT"}
+];
+const CELLS=["Target person","Current state","Hook","Retention","IG signal","Profile bridge","Commercial bridge","Next action"];
+// Example rows for the prototype. Not client results.
+const ROWS=[
+ {id:"S1",r:"share",seg:"Specialty coffee",hook:"06:40. Our cases are in your café. You are still <em>asleep</em>.",c:{"Target person":"Café founder, 1–3 branches","Current state":"Posts only when there's time","Hook":"06:40 timestamp over empty bar","Retention":"Clock ticks to opening, reveal the prep","IG signal":"Sends + 3s hold","Profile bridge":"We shoot before you open","Commercial bridge":"Content Engine","Next action":"Send to your co-founder"}},
+ {id:"S2",r:"share",seg:"Premium clinics",hook:"Your last 200 enquiries. Eleven booked. The ads were <em>not</em> the problem.",c:{"Target person":"Clinic marketing manager","Current state":"Blames paid ads for low bookings","Hook":"200 → 11 counter","Retention":"Walk the enquiry path step by step","IG signal":"Sends","Profile bridge":"We fix the path after the click","Commercial bridge":"Growth Audit","Next action":"Send to whoever answers the DMs"}},
+ {id:"S3",r:"share",seg:"Fitness & wellness",hook:"Empty court, 11am. No music. This is what your Instagram is <em>not</em> showing.",c:{"Target person":"Studio owner","Current state":"Feed shows only peak classes","Hook":"Silent empty court","Retention":"Contrast: quiet hours vs. feed","IG signal":"Sends + watch time","Profile bridge":null,"Commercial bridge":"Content Engine","Next action":"Send to your head coach"}},
+ {id:"S4",r:"share",seg:"E-commerce / DTC",hook:"Your collection. Your friend's iPhone. Our slider. <em>Same</em> garment.",c:{"Target person":"DTC founder","Current state":"Thinks product photos are fine","Hook":"Split-screen slider","Retention":"Drag reveal, three angles","IG signal":"Sends","Profile bridge":"Product content that sells","Commercial bridge":"Launch package","Next action":"Send to your co-founder"}},
+ {id:"V1",r:"save",seg:"Specialty coffee",hook:"One seasonal launch becomes <em>12</em> pieces of content.",c:{"Target person":"Marketing manager, multi-branch","Current state":"One launch = one post","Hook":"1 → 12 counter","Retention":"Carousel: product to retargeting","IG signal":"Saves","Profile bridge":"This is our Content Engine","Commercial bridge":"Content Engine","Next action":"Save for your next launch"}},
+ {id:"V2",r:"save",seg:"Specialty coffee",hook:"<em>5</em> formats that give every branch its own following.",c:{"Target person":"Founder / marketing manager","Current state":"Every branch posts the same thing","Hook":"5 branch cards","Retention":"One format per slide","IG signal":"Saves","Profile bridge":"Branch-level content","Commercial bridge":"Multi-branch engine","Next action":null}},
+ {id:"W1",r:"watch",seg:"Specialty coffee",hook:"One new drink. <em>Two weeks</em> of content. Watch us build it.",c:{"Target person":"Marketing manager","Current state":"Doubts outsourcing works","Hook":"Drink on bar, calendar overlay","Retention":"Day-by-day reveal","IG signal":"Watch time + completion","Profile bridge":"We plug into your calendar","Commercial bridge":"Content Engine","Next action":"Follow for part 2"}},
+ {id:"W2",r:"watch",seg:"Hospitality",hook:"We kept everything about this brand except <em>one</em> thing.",c:{"Target person":"Founder","Current state":"Fears losing brand DNA","Hook":"Before / after, one blurred element","Retention":"Mystery solved at the end","IG signal":"Rewatches","Profile bridge":null,"Commercial bridge":"Brand voice refresh","Next action":null}},
+ {id:"P1",r:"profile",seg:"All segments",hook:"What working with us looks like, from <em>shoot day</em> to report.",c:{"Target person":"Visitor after 3–4 posts","Current state":"Who are they, who do they serve?","Hook":"Strategy board close-up","Retention":"Real footage timeline","IG signal":"Profile visits → follows","Profile bridge":"Pinned","Commercial bridge":"Content Engine","Next action":"Pinned + highlights"}},
+ {id:"C1",r:"convert",seg:"All segments",hook:"You have the strategy. We become the <em>execution arm</em>.",c:{"Target person":"Warm marketing manager","Current state":"Ready to talk","Hook":"Offer stack reveal","Retention":"Four tiles, one per service","IG signal":"DMs (keyword)","Profile bridge":"n/a","Commercial bridge":"Content Engine","Next action":"DM AUDIT"}}
+];
+const filled=r=>CELLS.filter(c=>r.c[c]).length;
+const S={rung:null,filter:"all",sel:"S1"};
+try{const v=JSON.parse(localStorage.getItem("mx")||"{}");Object.assign(S,v)}catch(e){}
+const save=()=>{try{localStorage.setItem("mx",JSON.stringify(S))}catch(e){}};
+const $=s=>document.querySelector(s);
+
+function drawRungs(){
+  const wrap=$("#rungs");wrap.querySelectorAll(".rung").forEach(n=>n.remove());
+  RUNGS.forEach((g,i)=>{
+    const rows=ROWS.filter(r=>r.r===g.k), ready=rows.filter(r=>filled(r)===8).length;
+    const C=2*Math.PI*34, frac=Math.min(rows.length/g.target,1);
+    const b=document.createElement("button");b.type="button";b.className="rung";b.setAttribute("aria-pressed",S.rung===g.k);
+    b.innerHTML=`<div class="ring"><svg viewBox="0 0 78 78"><circle class="bg" cx="39" cy="39" r="34"/><circle class="fg" cx="39" cy="39" r="34" stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg><div class="core"><span>${rows.length}/${g.target}</span></div></div>
+      <span class="name">${g.n}</span><span class="pct">${ready}/${rows.length} SCRIPT-READY</span><span class="job">${g.job}</span>${i<4?'<span class="chev" aria-hidden="true">›</span>':""}`;
+    b.onclick=()=>{S.rung=S.rung===g.k?null:g.k;save();drawRungs();drawList(true)};
+    wrap.appendChild(b);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>b.querySelector(".fg").style.strokeDashoffset=C*(1-frac)));
+  });
+}
+function visible(){
+  return ROWS.filter(r=>(!S.rung||r.r===S.rung)&&(S.filter==="all"||(S.filter==="gap"?filled(r)<8:filled(r)===8)));
+}
+function drawList(anim){
+  const rows=visible(), list=$("#list");
+  const g=RUNGS.find(x=>x.k===S.rung);
+  $("#mtitle").firstChild.textContent=g?`${g.n} rows`:"All rows";
+  $("#mcount").textContent=` ${rows.length} shown · ${ROWS.filter(r=>filled(r)<8).length} need cells`;
+  document.querySelectorAll("#filters .chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.f===S.filter));
+  list.innerHTML=rows.length?"":'<div class="empty">No rows match this view. Clear the stage or filter to see all 10.</div>';
+  rows.forEach((r,i)=>{
+    const f=filled(r), b=document.createElement("button");
+    b.type="button";b.className="item";b.setAttribute("role","option");b.setAttribute("aria-selected",r.id===S.sel);
+    b.style.animationDelay=anim?`${i*40}ms`:"0ms";if(!anim)b.style.animation="none";
+    b.innerHTML=`<span class="id">${r.id}<small>${r.r}</small></span>
+      <span class="hook">${r.hook.replace(/<\/?em>/g,"")}<span class="seg-tag">${r.seg}</span></span>
+      <span class="cells" aria-label="${f} of 8 cells filled">${CELLS.map(c=>`<i class="${r.c[c]?"on":""}"></i>`).join("")}<b>${f}/8</b></span>
+      <span class="state ${f===8?"ready":"gap"}">${f===8?"Script-ready":"Needs "+(8-f)}</span>`;
+    b.onclick=()=>select(r.id);
+    list.appendChild(b);
+  });
+}
+function select(id){S.sel=id;save();document.querySelectorAll(".item").forEach(n=>n.setAttribute("aria-selected",n.querySelector(".id").firstChild.textContent===id));drawInsp()}
+function drawInsp(){
+  const r=ROWS.find(x=>x.id===S.sel)||ROWS[0], g=RUNGS.find(x=>x.k===r.r);
+  $("#insp").innerHTML=`
+    <div class="hd"><span class="label">Row ${r.id} · ${g.n}</span><span class="label"><span class="kbd">J</span><span class="kbd">K</span></span></div>
+    <div class="frame swap" aria-label="Reel cover preview in brand colours">
+      <span class="lvl">${g.n} · ${r.seg}</span>
+      <span class="ht">${r.hook}</span>
+      <div style="position:relative;display:flex;flex-direction:column;gap:12px">
+        <span class="ctab">${r.c["Next action"]||g.cta}</span>
+        <div class="prog"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+      <div><div class="label" style="margin-bottom:8px">Colour ratio · navy 70 / white 20 / teal 10</div><div class="ratio"><span></span><span></span><span></span></div></div>
+      <dl class="dl swap">${CELLS.map(c=>`<div><dt>${c}</dt><dd class="${r.c[c]?"":"miss"}">${r.c[c]||"Empty. Generate or type it."}</dd></div>`).join("")}</dl>
+      <button class="btn cta" type="button" ${filled(r)<8?"disabled style='opacity:.45;cursor:not-allowed'":""} onclick="toast('Script for ${r.id} queued')">Write script from this row</button>
+    </div>
+    <p class="note">Rows and hooks here are example content for the prototype, not client results.</p>`;
+}
+function toast(t){const n=document.createElement("div");n.className="toast";n.textContent=t;document.body.appendChild(n);setTimeout(()=>n.remove(),2200)}
+function scan(msg){const s=$("#scan");s.classList.remove("run");void s.offsetWidth;s.classList.add("run");setTimeout(()=>{drawList(true);toast(msg)},700)}
+
+$("#filters").onclick=e=>{const f=e.target.closest(".chip");if(!f)return;S.filter=f.dataset.f;save();drawList(true)};
+$("#gen").onclick=()=>scan("10 rows checked against the 4/2/2/1/1 mix");
+$("#regen").onclick=()=>scan("Regenerating Positioning and Reverse Engineer");
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));if(b.textContent==="Table")toast("Table view isn't in this prototype")});
+
+// command menu
+const CMDS=()=>[
+  ...ROWS.map(r=>({t:`${r.id}  ${r.hook.replace(/<\/?em>/g,"")}`,h:r.r,run:()=>{S.rung=null;S.filter="all";drawRungs();drawList();select(r.id)}})),
+  ...RUNGS.map(g=>({t:`Show ${g.n} rows`,h:"stage",run:()=>{S.rung=g.k;drawRungs();drawList(true)}})),
+  {t:"Show rows missing cells",h:"filter",run:()=>{S.filter="gap";drawList(true)}},
+  {t:"Generate rows",h:"action",run:()=>$("#gen").click()}
+];
+let ci=0,cur=[];
+function openCmd(){$("#veil").hidden=false;$("#cmd-input").value="";renderCmd();$("#cmd-input").focus()}
+function closeCmd(){$("#veil").hidden=true}
+function renderCmd(){const q=$("#cmd-input").value.toLowerCase();cur=CMDS().filter(c=>c.t.toLowerCase().includes(q)).slice(0,9);ci=Math.min(ci,Math.max(cur.length-1,0));
+  $("#cmd-list").innerHTML=cur.map((c,i)=>`<li class="${i===ci?"on":""}" data-i="${i}"><span>${c.t}</span><span class="label">${c.h}</span></li>`).join("")||'<li>No match</li>'}
+$("#cmd-input").oninput=()=>{ci=0;renderCmd()};
+$("#cmd-list").onclick=e=>{const li=e.target.closest("li[data-i]");if(li){cur[+li.dataset.i].run();closeCmd()}};
+$("#veil").onclick=e=>{if(e.target.id==="veil")closeCmd()};
+$("#open-cmd").onclick=openCmd;
+document.addEventListener("keydown",e=>{
+  if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#veil").hidden?openCmd():closeCmd();return}
+  if(!$("#veil").hidden){
+    if(e.key==="Escape")closeCmd();
+    if(e.key==="ArrowDown"){ci=(ci+1)%cur.length;renderCmd();e.preventDefault()}
+    if(e.key==="ArrowUp"){ci=(ci-1+cur.length)%cur.length;renderCmd();e.preventDefault()}
+    if(e.key==="Enter"&&cur[ci]){cur[ci].run();closeCmd()}
+    return}
+  if(e.target.tagName==="INPUT")return;
+  if(e.key==="j"||e.key==="k"){const v=visible(),i=v.findIndex(r=>r.id===S.sel);const n=v[(i+(e.key==="j"?1:-1)+v.length)%v.length];if(n)select(n.id)}
+});
+
+drawRungs();drawList(true);drawInsp();
+</script>
